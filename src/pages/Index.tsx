@@ -117,7 +117,7 @@ const Index = () => {
       description: "Стартовая точка маршрута. Центральная площадь города с монументальным фонтаном и праздничным оформлением к юбилею.",
       category: "Площадь",
       time: "9:00",
-      image: "https://cdn.poehali.dev/projects/57bf430d-119b-44dd-9ab9-27a0cbb64436/files/8caef0e7-58a0-43f1-9206-e3c15cf54449.jpg",
+      image: "https://cdn.poehali.dev/projects/57bf430d-119b-44dd-9ab9-27a0cbb64436/files/f5712bb3-d6ac-4026-b938-e16530c439cb.jpg",
     },
     {
       number: "02",
