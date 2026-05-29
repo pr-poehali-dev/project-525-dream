@@ -125,7 +125,7 @@ const Index = () => {
       description: "Уникальная экспозиция о 60-летней истории Нижнекамска: от нефтехимического гиганта до современного города.",
       category: "Музей",
       time: "9:30",
-      image: "https://cdn.poehali.dev/projects/57bf430d-119b-44dd-9ab9-27a0cbb64436/files/350f0f99-2d4b-4fdd-b08e-d18f28037c96.jpg",
+      image: "https://cdn.poehali.dev/projects/57bf430d-119b-44dd-9ab9-27a0cbb64436/files/97e04429-2764-425d-bbb1-d5d24a426499.jpg",
     },
     {
       number: "03",
