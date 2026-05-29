@@ -100,6 +100,7 @@ interface RoutePoint {
   description: string
   category: string
   time: string
+  image: string
 }
 
 const Index = () => {
@@ -116,6 +117,7 @@ const Index = () => {
       description: "Стартовая точка маршрута. Центральная площадь города с монументальным фонтаном и праздничным оформлением к юбилею.",
       category: "Площадь",
       time: "9:00",
+      image: "https://cdn.poehali.dev/projects/57bf430d-119b-44dd-9ab9-27a0cbb64436/files/8caef0e7-58a0-43f1-9206-e3c15cf54449.jpg",
     },
     {
       number: "02",
@@ -123,6 +125,7 @@ const Index = () => {
       description: "Уникальная экспозиция о 60-летней истории Нижнекамска: от нефтехимического гиганта до современного города.",
       category: "Музей",
       time: "9:30",
+      image: "https://cdn.poehali.dev/projects/57bf430d-119b-44dd-9ab9-27a0cbb64436/files/350f0f99-2d4b-4fdd-b08e-d18f28037c96.jpg",
     },
     {
       number: "03",
@@ -130,6 +133,7 @@ const Index = () => {
       description: "Зелёная зона отдыха с фонтанами, скульптурами и аллеями. Идеальное место для прогулки и знакомства с горожанами.",
       category: "Парк",
       time: "11:00",
+      image: "https://cdn.poehali.dev/projects/57bf430d-119b-44dd-9ab9-27a0cbb64436/files/51b7f14a-2191-427e-aa9f-4070ef70df94.jpg",
     },
     {
       number: "04",
@@ -137,6 +141,7 @@ const Index = () => {
       description: "Живописная прогулочная зона вдоль реки с видами на промышленный горизонт — символ города-труженика.",
       category: "Природа",
       time: "13:00",
+      image: "https://cdn.poehali.dev/projects/57bf430d-119b-44dd-9ab9-27a0cbb64436/files/2f3d696f-449d-4975-a6eb-f657533f1769.jpg",
     },
     {
       number: "05",
@@ -144,6 +149,7 @@ const Index = () => {
       description: "Монумент в честь первостроителей Нижнекамска — людей, создавших один из крупнейших нефтехимических центров России.",
       category: "Памятник",
       time: "15:00",
+      image: "https://cdn.poehali.dev/projects/57bf430d-119b-44dd-9ab9-27a0cbb64436/files/6596f801-571f-4e7d-80c7-3a16f9200480.jpg",
     },
     {
       number: "06",
@@ -151,6 +157,7 @@ const Index = () => {
       description: "Центр культурной жизни города. Здесь проходят юбилейные выставки, концерты и мультимедийные показы об истории Нижнекамска.",
       category: "Культура",
       time: "16:30",
+      image: "https://cdn.poehali.dev/projects/57bf430d-119b-44dd-9ab9-27a0cbb64436/files/53f0cb41-bd62-4847-bd7b-cb468a81722a.jpg",
     },
   ]
 
@@ -321,27 +328,36 @@ const Index = () => {
               {routePoints.map((point) => (
                 <div
                   key={point.number}
-                  className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6 flex flex-col gap-4 hover:bg-white/10 transition-colors"
+                  className="rounded-2xl bg-white/5 ring-1 ring-white/10 overflow-hidden flex flex-col hover:bg-white/10 transition-colors"
                 >
-                  <div className="flex items-start justify-between">
-                    <span className="text-4xl font-bold text-white/20">{point.number}</span>
-                    <div className="flex flex-col items-end gap-1">
-                      <span className="text-xs px-2 py-1 bg-white/10 ring-1 ring-white/20 rounded-full">
+                  {/* Photo */}
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={point.image}
+                      alt={point.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <span className="absolute top-3 left-3 text-3xl font-bold text-white/40">{point.number}</span>
+                    <div className="absolute top-3 right-3 flex flex-col items-end gap-1">
+                      <span className="text-xs px-2 py-1 bg-black/50 ring-1 ring-white/20 backdrop-blur rounded-full">
                         {point.category}
                       </span>
-                      <span className="text-xs text-white/50 flex items-center gap-1">
-                        <Icon name="Clock" size={12} />
+                      <span className="text-xs text-white/70 flex items-center gap-1 bg-black/50 px-2 py-1 rounded-full">
+                        <Icon name="Clock" size={11} />
                         {point.time}
                       </span>
                     </div>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">{point.title}</h3>
-                    <p className="text-white/70 text-sm leading-relaxed">{point.description}</p>
-                  </div>
-                  <div className="flex items-center gap-1 text-white/50 text-xs mt-auto">
-                    <Icon name="MapPin" size={12} />
-                    <span>Нижнекамск</span>
+                  <div className="p-5 flex flex-col gap-3 flex-1">
+                    <div>
+                      <h3 className="text-lg font-semibold mb-2">{point.title}</h3>
+                      <p className="text-white/70 text-sm leading-relaxed">{point.description}</p>
+                    </div>
+                    <div className="flex items-center gap-1 text-white/50 text-xs mt-auto">
+                      <Icon name="MapPin" size={12} />
+                      <span>Нижнекамск</span>
+                    </div>
                   </div>
                 </div>
               ))}
