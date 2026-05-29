@@ -1,39 +1,121 @@
-import { Compass, Lock, Sparkles, ShieldCheck, Wallet, Leaf, Plus, Minus, Mail } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import Icon from "@/components/ui/icon"
 
 interface FAQ {
   question: string
   answer: string
 }
 
+interface RoutePoint {
+  number: string
+  title: string
+  description: string
+  category: string
+  time: string
+}
+
 const Index = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const [email, setEmail] = useState("")
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index)
   }
 
+  const routePoints: RoutePoint[] = [
+    {
+      number: "01",
+      title: "Площадь 50-летия НефтеКамска",
+      description: "Стартовая точка маршрута. Центральная площадь города с монументальным фонтаном и праздничным оформлением к юбилею.",
+      category: "Площадь",
+      time: "9:00",
+    },
+    {
+      number: "02",
+      title: "Краеведческий музей",
+      description: "Уникальная экспозиция о 60-летней истории Нижнекамска: от нефтехимического гиганта до современного города.",
+      category: "Музей",
+      time: "9:30",
+    },
+    {
+      number: "03",
+      title: "Парк культуры и отдыха",
+      description: "Зелёная зона отдыха с фонтанами, скульптурами и аллеями. Идеальное место для прогулки и знакомства с горожанами.",
+      category: "Парк",
+      time: "11:00",
+    },
+    {
+      number: "04",
+      title: "Набережная реки Камы",
+      description: "Живописная прогулочная зона вдоль реки с видами на промышленный горизонт — символ города-труженика.",
+      category: "Природа",
+      time: "13:00",
+    },
+    {
+      number: "05",
+      title: "Памятник нефтехимикам",
+      description: "Монумент в честь первостроителей Нижнекамска — людей, создавших один из крупнейших нефтехимических центров России.",
+      category: "Памятник",
+      time: "15:00",
+    },
+    {
+      number: "06",
+      title: "Дворец культуры «Нефтехимик»",
+      description: "Центр культурной жизни города. Здесь проходят юбилейные выставки, концерты и мультимедийные показы об истории Нижнекамска.",
+      category: "Культура",
+      time: "16:30",
+    },
+  ]
+
+  const features = [
+    {
+      icon: "Map",
+      title: "Умный маршрут",
+      description: "Маршрут спроектирован так, чтобы равномерно распределить поток туристов и избежать очередей.",
+    },
+    {
+      icon: "Clock",
+      title: "6 точек за день",
+      description: "Оптимальный тайминг: все ключевые места города без спешки за один день.",
+    },
+    {
+      icon: "Star",
+      title: "60 лет истории",
+      description: "Каждая точка маршрута — часть большого юбилейного рассказа о городе.",
+    },
+    {
+      icon: "Users",
+      title: "Для всех",
+      description: "Маршрут удобен для семей с детьми, пожилых гостей и иностранных туристов.",
+    },
+  ]
+
   const faqs: FAQ[] = [
     {
-      question: "Насколько физически сложен этот тур?",
+      question: "Сколько времени займёт весь маршрут?",
       answer:
-        "Экспедиция в Скрытую Долину требует отличной физической подготовки. Вам предстоит пройти более 15 км по джунглям, спуститься по веревке с 80-метровой высоты и преодолеть подземные реки. Участники должны быть готовы нести рюкзак весом 15 кг и иметь опыт спелеологии или треккинга.",
+        "Полный маршрут рассчитан на один день: с 9:00 до 18:00 с учётом остановок и отдыха. Вы можете пройти его самостоятельно или с экскурсоводом.",
     },
     {
-      question: "Что входит в стоимость тура?",
+      question: "Нужно ли покупать билеты заранее?",
       answer:
-        "В стоимость экспедиции включены все разрешения, профессиональные гиды, снаряжение для безопасности, палаточное оборудование, питание на маршруте, трансфер от базового лагеря и страховка экстренной эвакуации. Личные вещи, такие как одежда и средства гигиены, не включены.",
+        "Большинство точек маршрута — это открытые пространства (площади, парки, набережная). Для посещения музея и Дворца культуры рекомендуем приобрести билеты онлайн или на входе.",
     },
     {
-      question: "Безопасно ли исследовать пещеру Скрытой Долины?",
+      question: "Удобен ли маршрут для людей с ограниченными возможностями?",
       answer:
-        "Безопасность — наш абсолютный приоритет. Все гиды — сертифицированные спасатели-спелеологи, мы используем профессиональное снаряжение, поддерживаем постоянную связь с базовым лагерем и имеем комплексные протоколы на случай ЧП. Погодные условия отслеживаются непрерывно.",
+        "Да! Все объекты маршрута адаптированы для маломобильных граждан: пандусы, ровные дорожки и доступный транспорт между точками.",
     },
     {
-      question: "Как забронировать место?",
+      question: "Как добраться между точками?",
       answer:
-        "Группы ограничены 10 участниками, экспедиции проводятся только в сухой сезон (февраль-август). Бронируйте за 6-12 месяцев через наш сайт. Предоплата 50% закрепляет ваше место, полная оплата — за 30 дней до выезда.",
+        "Большинство объектов находятся в пешей доступности. Для более дальних переездов рекомендуем городской автобус или такси. Расстояние между крайними точками — около 4 км.",
+    },
+    {
+      question: "Есть ли экскурсоводы на маршруте?",
+      answer:
+        "Да, в рамках юбилейной программы организованы бесплатные экскурсии по маршруту каждые выходные. Записывайтесь через форму на этом сайте.",
     },
   ]
 
@@ -41,82 +123,81 @@ const Index = () => {
     <div className="min-h-screen bg-[#0B0F12] text-white">
       {/* Hero Section */}
       <div className="relative min-h-screen">
-        {/* Background Image with Overlay */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url(https://www.elledecoration.vn/wp-content/uploads/2025/03/1-son-doong.jpg)",
+            backgroundImage: `url(https://cdn.poehali.dev/projects/57bf430d-119b-44dd-9ab9-27a0cbb64436/files/af253535-c9de-44bd-9933-e6619fe95f71.jpg)`,
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/85" />
         </div>
 
         {/* Navigation */}
         <nav className="relative z-10 flex items-center justify-between p-6">
-          {/* Logo */}
           <div className="flex items-center gap-2 px-4 py-2 bg-black/40 ring-1 ring-white/20 backdrop-blur rounded-full">
-            <Compass className="w-5 h-5" />
-            <span className="font-medium text-balance">Horizon Adventures</span>
+            <Icon name="Compass" size={20} />
+            <span className="font-medium">Нижнекамск 60</span>
           </div>
 
-          {/* Navigation Links */}
           <div className="hidden md:flex items-center gap-1">
-            {["Экспедиция", "Безопасность", "Галерея", "Вопросы", "Контакты"].map((item) => (
+            {[
+              { label: "Маршрут", href: "#route" },
+              { label: "Точки", href: "#points" },
+              { label: "Вопросы", href: "#faq" },
+              { label: "Контакты", href: "#contact" },
+            ].map((item) => (
               <a
-                key={item}
-                href="#"
+                key={item.label}
+                href={item.href}
                 className="px-4 py-2 bg-black/40 ring-1 ring-white/20 backdrop-blur rounded-full hover:bg-black/50 transition-colors"
               >
-                {item}
+                {item.label}
               </a>
             ))}
           </div>
 
-          {/* Action Buttons */}
           <div className="flex items-center gap-3">
-            <a
-              href="#"
-              className="px-4 py-2 bg-black/40 ring-1 ring-white/20 backdrop-blur rounded-full hover:bg-black/50 transition-colors"
-            >
-              Войти
-            </a>
-            <Button className="bg-white text-black hover:bg-white/90 rounded-full px-6">Забронировать</Button>
+            <Button className="bg-white text-black hover:bg-white/90 rounded-full px-6">
+              Скачать карту
+            </Button>
           </div>
         </nav>
 
         {/* Hero Content */}
         <div className="relative z-10 flex flex-col items-center justify-center min-h-[calc(100vh-120px)] px-6 text-center">
-          {/* Badge */}
           <div className="mb-6 px-4 py-2 bg-black/40 ring-1 ring-white/20 backdrop-blur rounded-full">
-            <span className="text-sm font-medium">Эксклюзивные групповые экспедиции</span>
+            <span className="text-sm font-medium">Нижнекамск · 60 лет · Умный туристический маршрут</span>
           </div>
 
-          {/* Main Headline */}
-          <h1 className="text-6xl md:text-8xl font-light tracking-tight mb-6 text-balance">Войдите в затерянный мир.</h1>
+          <h1 className="text-5xl md:text-8xl font-light tracking-tight mb-6 text-balance leading-tight">
+            Открой город<br />за один день.
+          </h1>
 
-          {/* Subheading */}
-          <p className="text-xl md:text-2xl text-white/90 max-w-4xl mb-12 leading-relaxed text-pretty">
-            Исследуйте грандиозные залы пещеры Скрытой Долины в Южной Америке — уникальную экосистему с собственными джунглями и погодой — в рамках 4-дневной экспедиции с гидом.
+          <p className="text-xl md:text-2xl text-white/85 max-w-3xl mb-12 leading-relaxed text-pretty">
+            Умный маршрут по 6 ключевым точкам Нижнекамска — музеям, паркам, набережной и памятникам. Создан к 60-летию города.
           </p>
 
-          {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 mb-16">
-            <Button size="lg" className="bg-white text-black hover:bg-white/90 rounded-full px-8 py-4 text-lg">
-              Забронировать экспедицию
+            <Button
+              size="lg"
+              className="bg-white text-black hover:bg-white/90 rounded-full px-8 py-4 text-lg"
+              onClick={() => document.getElementById("route")?.scrollIntoView({ behavior: "smooth" })}
+            >
+              Смотреть маршрут
             </Button>
             <Button
               size="lg"
               variant="outline"
               className="bg-black/40 ring-1 ring-white/20 backdrop-blur border-0 text-white hover:bg-black/50 rounded-full px-8 py-4 text-lg"
+              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
             >
-              Смотреть маршрут
+              Записаться на экскурсию
             </Button>
           </div>
 
-          {/* Footer Note */}
           <div className="flex items-center gap-2 px-4 py-2 bg-black/40 ring-1 ring-white/20 backdrop-blur rounded-full">
-            <Lock className="w-4 h-4" />
-            <span className="text-sm font-medium">Безопасность — наш приоритет</span>
+            <Icon name="MapPin" size={16} />
+            <span className="text-sm font-medium">Нижнекамск, Республика Татарстан</span>
           </div>
         </div>
       </div>
@@ -125,327 +206,197 @@ const Index = () => {
       <section className="relative z-10 py-24 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
-            {/* Expert-Led Tours */}
-            <div className="rounded-2xl bg-black/20 ring-1 ring-white/15 backdrop-blur p-8 text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-black/30 ring-1 ring-white/20 mb-6">
-                <Sparkles className="w-6 h-6" />
+            {features.map((f) => (
+              <div
+                key={f.title}
+                className="rounded-2xl bg-black/20 ring-1 ring-white/15 backdrop-blur p-8 text-center"
+              >
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-black/30 ring-1 ring-white/20 mb-6">
+                  <Icon name={f.icon} size={24} />
+                </div>
+                <h3 className="text-xl font-semibold mb-4">{f.title}</h3>
+                <p className="text-white/80 leading-relaxed">{f.description}</p>
               </div>
-              <h3 className="text-xl font-semibold mb-4">Туры с экспертами</h3>
-              <p className="text-white/80 leading-relaxed">Ведут геологи, спелеологи и местные специалисты.</p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Route Section */}
+      <section id="route" className="relative z-10 py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="rounded-3xl bg-white/5 ring-1 ring-white/10 backdrop-blur p-8 md:p-12">
+            <div className="text-center mb-16">
+              <div className="inline-block mb-4 px-4 py-1.5 bg-white/10 ring-1 ring-white/20 rounded-full text-sm">
+                Юбилейный маршрут 2026
+              </div>
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 text-balance">
+                Ваш день в Нижнекамске
+              </h2>
+              <p className="text-xl text-white/80 max-w-3xl mx-auto text-pretty">
+                6 точек притяжения, равномерно распределённых по городу — без толпы и без усталости.
+              </p>
             </div>
 
-            {/* World-Class Safety */}
-            <div className="rounded-2xl bg-black/20 ring-1 ring-white/15 backdrop-blur p-8 text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-black/30 ring-1 ring-white/20 mb-6">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Мировой уровень безопасности</h3>
-              <p className="text-white/80 leading-relaxed">Строгие протоколы и современное снаряжение.</p>
+            {/* Route Cards */}
+            <div id="points" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+              {routePoints.map((point) => (
+                <div
+                  key={point.number}
+                  className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6 flex flex-col gap-4 hover:bg-white/10 transition-colors"
+                >
+                  <div className="flex items-start justify-between">
+                    <span className="text-4xl font-bold text-white/20">{point.number}</span>
+                    <div className="flex flex-col items-end gap-1">
+                      <span className="text-xs px-2 py-1 bg-white/10 ring-1 ring-white/20 rounded-full">
+                        {point.category}
+                      </span>
+                      <span className="text-xs text-white/50 flex items-center gap-1">
+                        <Icon name="Clock" size={12} />
+                        {point.time}
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">{point.title}</h3>
+                    <p className="text-white/70 text-sm leading-relaxed">{point.description}</p>
+                  </div>
+                  <div className="flex items-center gap-1 text-white/50 text-xs mt-auto">
+                    <Icon name="MapPin" size={12} />
+                    <span>Нижнекамск</span>
+                  </div>
+                </div>
+              ))}
             </div>
 
-            {/* All-Inclusive Package */}
-            <div className="rounded-2xl bg-black/20 ring-1 ring-white/15 backdrop-blur p-8 text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-black/30 ring-1 ring-white/20 mb-6">
-                <Wallet className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Все включено</h3>
-              <p className="text-white/80 leading-relaxed">Разрешения, снаряжение, питание и трансфер.</p>
-            </div>
-
-            {/* Eco-Friendly Caving */}
-            <div className="rounded-2xl bg-black/20 ring-1 ring-white/15 backdrop-blur p-8 text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-black/30 ring-1 ring-white/20 mb-6">
-                <Leaf className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Эко-спелеология</h3>
-              <p className="text-white/80 leading-relaxed">Мы бережно сохраняем экосистему пещеры.</p>
+            {/* Route stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { value: "6", label: "точек маршрута" },
+                { value: "~9 км", label: "общий путь" },
+                { value: "8 ч", label: "продолжительность" },
+                { value: "60", label: "лет истории" },
+              ].map((stat) => (
+                <div
+                  key={stat.label}
+                  className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6 text-center"
+                >
+                  <div className="text-3xl font-bold mb-1">{stat.value}</div>
+                  <div className="text-white/60 text-sm">{stat.label}</div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Journey Section */}
-      <section className="relative z-10 py-24 px-6">
+      {/* Map placeholder section */}
+      <section className="relative z-10 py-12 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="rounded-3xl bg-white/5 ring-1 ring-white/10 backdrop-blur p-12">
-            {/* Section Header */}
-            <div className="text-center mb-16">
-              <h2 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-balance">Ваше эпическое путешествие</h2>
-              <p className="text-xl text-white/80 max-w-3xl mx-auto text-pretty">
-                От джунглей до подземных лагерей — вот что вас ждет.
-              </p>
-            </div>
-
-            {/* Journey Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-              {/* Phase 1: Briefing & Prep */}
-              <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur p-8 h-80 flex flex-col">
-                <div className="flex-1">
-                  <div className="text-3xl font-bold text-white/60 mb-4">01.</div>
-                  <h3 className="text-xl font-semibold mb-4">Инструктаж</h3>
-                  <p className="text-white/80 leading-relaxed text-sm">
-                    Ваше приключение начинается в базовом лагере с полного инструктажа по безопасности и проверки снаряжения.
-                  </p>
-                </div>
+          <div
+            className="rounded-3xl overflow-hidden ring-1 ring-white/10 relative"
+            style={{ height: 400 }}
+          >
+            <img
+              src="https://cdn.poehali.dev/projects/57bf430d-119b-44dd-9ab9-27a0cbb64436/files/a9b4acf9-db80-402c-bd3b-e8f067eea2bb.jpg"
+              alt="Нижнекамск — маршрут"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/20 flex items-end p-8">
+              <div>
+                <h3 className="text-2xl font-bold mb-2">Интерактивная карта маршрута</h3>
+                <p className="text-white/80 mb-4">Все 6 точек с навигацией и описаниями</p>
+                <Button className="bg-white text-black hover:bg-white/90 rounded-full px-6">
+                  Открыть карту
+                </Button>
               </div>
-
-              {/* Phase 2: The Trek */}
-              <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur p-8 h-80 flex flex-col">
-                <div className="flex-1">
-                  <div className="text-3xl font-bold text-white/60 mb-4">02.</div>
-                  <h3 className="text-xl font-semibold mb-4">Треккинг</h3>
-                  <p className="text-white/80 leading-relaxed text-sm">
-                    Идите через нетронутые джунгли, пересекайте реки и ночуйте в удаленных точках по пути ко входу в Скрытую Долину.
-                  </p>
-                </div>
-              </div>
-
-              {/* Phase 3: Caving */}
-              <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur p-8 h-80 flex flex-col">
-                <div className="flex-1">
-                  <div className="text-3xl font-bold text-white/60 mb-4">03.</div>
-                  <h3 className="text-xl font-semibold mb-4">Спелеология</h3>
-                  <p className="text-white/80 leading-relaxed text-sm">
-                    Спуститесь в пещеру, чтобы увидеть гигантские сталагмиты, исследовать огромные залы и уникальные подземные джунгли.
-                  </p>
-                </div>
-              </div>
-
-              {/* Phase 4: Base Camp */}
-              <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur p-8 h-80 flex flex-col">
-                <div className="flex-1">
-                  <div className="text-3xl font-bold text-white/60 mb-4">04.</div>
-                  <h3 className="text-xl font-semibold mb-4">Базовый лагерь</h3>
-                  <p className="text-white/80 leading-relaxed text-sm">
-                    Проведите ночи на потрясающих стоянках внутри пещеры, делясь историями с группой перед обратным путем.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Check Availability Button */}
-            <div className="text-center">
-              <Button
-                size="lg"
-                className="bg-white text-black hover:bg-white/90 rounded-full px-12 py-4 text-lg font-semibold"
-              >
-                Проверить наличие мест
-              </Button>
             </div>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="relative z-10 py-24 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="rounded-3xl bg-white/5 ring-1 ring-white/10 backdrop-blur p-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-              {/* Left Column - Title and Description */}
-              <div>
-                <h2 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-balance">
-                  Частые вопросы
-                </h2>
-                <p className="text-xl text-white/80 leading-relaxed text-pretty">
-                  Все, что нужно знать об экспедиции: от физических требований до бронирования места в этом эксклюзивном приключении.
-                </p>
-              </div>
+      <section id="faq" className="relative z-10 py-24 px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Частые вопросы</h2>
+            <p className="text-white/70 text-lg">Всё, что нужно знать перед визитом</p>
+          </div>
 
-              {/* Right Column - FAQ Accordion */}
-              <div className="space-y-4">
-                {faqs.map((faq, index) => (
-                  <div
-                    key={index}
-                    className="rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur overflow-hidden"
-                  >
-                    <button
-                      onClick={() => toggleFaq(index)}
-                      className="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors"
-                    >
-                      <h3 className="text-lg font-semibold pr-4">{faq.question}</h3>
-                      {openFaq === index ? (
-                        <Minus className="w-5 h-5 flex-shrink-0" />
-                      ) : (
-                        <Plus className="w-5 h-5 flex-shrink-0" />
-                      )}
-                    </button>
-                    {openFaq === index && (
-                      <div className="px-6 pb-6">
-                        <p className="text-white/80 leading-relaxed">{faq.answer}</p>
-                      </div>
+          <div className="space-y-3">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className="rounded-2xl bg-white/5 ring-1 ring-white/10 overflow-hidden"
+              >
+                <button
+                  onClick={() => toggleFaq(index)}
+                  className="w-full flex items-center justify-between p-6 text-left hover:bg-white/5 transition-colors"
+                >
+                  <span className="font-medium text-lg pr-4">{faq.question}</span>
+                  <div className="shrink-0 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+                    {openFaq === index ? (
+                      <Icon name="Minus" size={16} />
+                    ) : (
+                      <Icon name="Plus" size={16} />
                     )}
                   </div>
-                ))}
+                </button>
+                {openFaq === index && (
+                  <div className="px-6 pb-6">
+                    <p className="text-white/70 leading-relaxed">{faq.answer}</p>
+                  </div>
+                )}
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="relative z-10 py-24 px-6">
+      {/* Contact / Newsletter Section */}
+      <section id="contact" className="relative z-10 py-24 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="rounded-3xl bg-black/20 ring-1 ring-white/15 backdrop-blur p-12">
-            {/* Section Header */}
-            <div className="text-center mb-16">
-              <h2 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-balance">Свяжитесь с нами</h2>
+          <div className="rounded-3xl bg-white/5 ring-1 ring-white/10 backdrop-blur p-8 md:p-16 text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/10 ring-1 ring-white/20 mb-8">
+              <Icon name="Mail" size={28} />
             </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-              {/* Left Column - Contact Form */}
-              <div className="rounded-2xl bg-white/95 text-black p-8 shadow-2xl">
-                <h3 className="text-2xl font-bold mb-6">Отправить запрос</h3>
-                <form className="space-y-6">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium mb-2">
-                      Имя
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Ваше полное имя"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-2">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="your.email@example.com"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium mb-2">
-                      Сообщение
-                    </label>
-                    <textarea
-                      id="message"
-                      rows={5}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                      placeholder="Расскажите о ваших интересах в экспедиции..."
-                    />
-                  </div>
-                  <Button className="w-full bg-black text-white hover:bg-gray-800 rounded-lg py-3 font-normal text-base">
-                    Отправить сообщение
-                  </Button>
-                </form>
-              </div>
-
-              {/* Right Column - Contact Info */}
-              <div className="space-y-8">
-                <div>
-                  <p className="text-xl text-white/90 leading-relaxed text-pretty">
-                    По вопросам индивидуальных туров, партнерства или для СМИ — свяжитесь с нами. Мы отвечаем в течение одного рабочего дня.
-                  </p>
-                </div>
-
-                {/* Profile Card */}
-                <div className="rounded-2xl bg-white/95 text-black p-6 shadow-2xl">
-                  <div className="flex items-center gap-4 mb-4">
-                    <img
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-                      alt="Маркус Уильямс"
-                      className="w-16 h-16 rounded-full object-cover"
-                    />
-                    <div>
-                      <h4 className="text-lg font-semibold">Маркус Уильямс</h4>
-                      <p className="text-gray-600">Руководитель экспедиций</p>
-                    </div>
-                  </div>
-                  <Button className="w-full bg-black text-white hover:bg-gray-800 rounded-lg flex items-center justify-center gap-2">
-                    <Mail className="w-4 h-4" />
-                    Написать
-                  </Button>
-                </div>
-              </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-balance">
+              Записаться на бесплатную экскурсию
+            </h2>
+            <p className="text-white/70 text-lg mb-10 max-w-2xl mx-auto">
+              Каждые выходные — групповые экскурсии по юбилейному маршруту. Оставьте email и мы пришлём расписание.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="ваш@email.ru"
+                className="flex-1 px-5 py-3 rounded-full bg-white/10 ring-1 ring-white/20 text-white placeholder:text-white/40 outline-none focus:ring-white/40 transition-all"
+              />
+              <Button className="bg-white text-black hover:bg-white/90 rounded-full px-8 py-3 shrink-0">
+                Записаться
+              </Button>
             </div>
+            <p className="text-white/40 text-sm mt-4">Без спама. Только расписание и новости маршрута.</p>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 py-24 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="rounded-3xl bg-white/[0.03] backdrop-blur-2xl ring-1 ring-white/10 p-12">
-            {/* Main Footer Content */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
-              {/* Brand Section */}
-              <div className="lg:col-span-2">
-                <div className="flex items-center gap-2 mb-6">
-                  <Compass className="w-6 h-6" />
-                  <span className="text-xl font-semibold">Horizon Adventures</span>
-                </div>
-                <p className="text-white/80 leading-relaxed text-pretty">
-                  Официальный туроператор экспедиций в Скрытую Долину — крупнейшую пещеру мира. Мы преданы безопасности, охране природы и незабываемым приключениям.
-                </p>
-              </div>
-
-              {/* Expedition Links */}
-              <div>
-                <h3 className="text-sm font-bold uppercase tracking-wider mb-6">ЭКСПЕДИЦИЯ</h3>
-                <ul className="space-y-3">
-                  {["Маршрут", "Цены", "Список снаряжения", "Фотогалерея"].map((item) => (
-                    <li key={item}>
-                      <a href="#" className="text-white/70 hover:text-white transition-colors text-sm leading-relaxed">
-                        {item}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* About Links */}
-              <div>
-                <h3 className="text-sm font-bold uppercase tracking-wider mb-6">О НАС</h3>
-                <ul className="space-y-3">
-                  {["Наша миссия", "Стандарты безопасности", "Команда", "Охрана природы"].map((item) => (
-                    <li key={item}>
-                      <a href="#" className="text-white/70 hover:text-white transition-colors text-sm leading-relaxed">
-                        {item}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Resources Links */}
-              <div>
-                <h3 className="text-sm font-bold uppercase tracking-wider mb-6">ПОДДЕРЖКА</h3>
-                <ul className="space-y-3">
-                  {["Справочный центр", "Контакты", "Вопросы и ответы", "Условия"].map((item) => (
-                    <li key={item}>
-                      <a href="#" className="text-white/70 hover:text-white transition-colors text-sm leading-relaxed">
-                        {item}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            {/* Newsletter Section */}
-            <div className="border-t border-white/10 pt-12 mb-12">
-              <div className="max-w-md">
-                <h3 className="text-lg font-semibold mb-4">Новости экспедиций</h3>
-                <div className="flex gap-3">
-                  <input
-                    type="email"
-                    placeholder="Введите ваш email"
-                    className="flex-1 px-4 py-3 rounded-lg bg-white/5 ring-1 ring-white/20 backdrop-blur border-0 text-white placeholder:text-white/50 focus:ring-2 focus:ring-white/30 focus:outline-none"
-                  />
-                  <Button className="bg-white text-black hover:bg-white/90 rounded-lg px-6 h-[50px]">Подписаться</Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Sub-footer */}
-            <div className="border-t border-white/10 pt-8">
-              <p className="text-white/60 text-sm text-center">© 2025 Horizon Adventures</p>
-            </div>
+      <footer className="relative z-10 border-t border-white/10 py-12 px-6">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-2">
+            <Icon name="Compass" size={20} />
+            <span className="font-medium">Нижнекамск 60 — Умный маршрут</span>
+          </div>
+          <p className="text-white/50 text-sm text-center">
+            © 2026 · Туристический маршрут к 60-летию Нижнекамска · Республика Татарстан
+          </p>
+          <div className="flex items-center gap-4 text-sm text-white/50">
+            <a href="#route" className="hover:text-white transition-colors">Маршрут</a>
+            <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
+            <a href="#contact" className="hover:text-white transition-colors">Контакты</a>
           </div>
         </div>
       </footer>
