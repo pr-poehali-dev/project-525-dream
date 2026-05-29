@@ -104,7 +104,6 @@ interface RoutePoint {
 
 const Index = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
-  const [email, setEmail] = useState("")
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index)
@@ -231,7 +230,6 @@ const Index = () => {
               { label: "Маршрут", href: "#route" },
               { label: "Точки", href: "#points" },
               { label: "Вопросы", href: "#faq" },
-              { label: "Контакты", href: "#contact" },
             ].map((item) => (
               <a
                 key={item.label}
@@ -244,8 +242,8 @@ const Index = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            <Button className="bg-white text-black hover:bg-white/90 rounded-full px-6">
-              Скачать карту
+            <Button className="bg-white text-black hover:bg-white/90 rounded-full px-6" onClick={() => document.getElementById("route")?.scrollIntoView({ behavior: "smooth" })}>
+              Смотреть маршрут
             </Button>
           </div>
         </nav>
@@ -272,14 +270,7 @@ const Index = () => {
             >
               Смотреть маршрут
             </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="bg-black/40 ring-1 ring-white/20 backdrop-blur border-0 text-white hover:bg-black/50 rounded-full px-8 py-4 text-lg"
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              Записаться на экскурсию
-            </Button>
+          
           </div>
 
           <div className="flex items-center gap-2 px-4 py-2 bg-black/40 ring-1 ring-white/20 backdrop-blur rounded-full">
@@ -439,35 +430,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Contact / Newsletter Section */}
-      <section id="contact" className="relative z-10 py-24 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="rounded-3xl bg-white/5 ring-1 ring-white/10 backdrop-blur p-8 md:p-16 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/10 ring-1 ring-white/20 mb-8">
-              <Icon name="Mail" size={28} />
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-balance">
-              Записаться на бесплатную экскурсию
-            </h2>
-            <p className="text-white/70 text-lg mb-10 max-w-2xl mx-auto">
-              Каждые выходные — групповые экскурсии по юбилейному маршруту. Оставьте email и мы пришлём расписание.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="ваш@email.ru"
-                className="flex-1 px-5 py-3 rounded-full bg-white/10 ring-1 ring-white/20 text-white placeholder:text-white/40 outline-none focus:ring-white/40 transition-all"
-              />
-              <Button className="bg-white text-black hover:bg-white/90 rounded-full px-8 py-3 shrink-0">
-                Записаться
-              </Button>
-            </div>
-            <p className="text-white/40 text-sm mt-4">Без спама. Только расписание и новости маршрута.</p>
-          </div>
-        </div>
-      </section>
+
 
       {/* Footer */}
       <footer className="relative z-10 border-t border-white/10 py-12 px-6">
@@ -482,7 +445,6 @@ const Index = () => {
           <div className="flex items-center gap-4 text-sm text-white/50">
             <a href="#route" className="hover:text-white transition-colors">Маршрут</a>
             <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
-            <a href="#contact" className="hover:text-white transition-colors">Контакты</a>
           </div>
         </div>
       </footer>
