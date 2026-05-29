@@ -1,6 +1,93 @@
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import Icon from "@/components/ui/icon"
+
+const YANDEX_API_KEY = "cadb0d95-e7e1-4c15-ae1e-1a7e9d786ca6"
+
+const MAP_POINTS = [
+  { coords: [55.6335, 51.8225], title: "Площадь 50-летия НефтеКамска", number: "01", category: "Площадь" },
+  { coords: [55.6312, 51.8198], title: "Краеведческий музей", number: "02", category: "Музей" },
+  { coords: [55.6289, 51.8312], title: "Парк культуры и отдыха", number: "03", category: "Парк" },
+  { coords: [55.6418, 51.8156], title: "Набережная реки Камы", number: "04", category: "Природа" },
+  { coords: [55.6275, 51.8267], title: "Памятник нефтехимикам", number: "05", category: "Памятник" },
+  { coords: [55.6301, 51.8243], title: "Дворец культуры «Нефтехимик»", number: "06", category: "Культура" },
+]
+
+declare global {
+  interface Window {
+     
+    ymaps: Record<string, unknown>
+  }
+}
+
+function YandexMap() {
+  const mapRef = useRef<HTMLDivElement>(null)
+   
+  const mapInstanceRef = useRef<Record<string, unknown> | null>(null)
+
+  useEffect(() => {
+    const scriptId = "ymaps-script"
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement("script")
+      script.id = scriptId
+      script.src = `https://api-maps.yandex.ru/2.1/?apikey=${YANDEX_API_KEY}&lang=ru_RU`
+      script.async = true
+      document.head.appendChild(script)
+      script.onload = () => initMap()
+    } else if (window.ymaps) {
+      window.ymaps.ready(() => initMap())
+    }
+
+    function initMap() {
+      if (!mapRef.current || mapInstanceRef.current) return
+      window.ymaps.ready(() => {
+        const map = new window.ymaps.Map(mapRef.current, {
+          center: [55.6312, 51.8243],
+          zoom: 14,
+          controls: ["zoomControl", "fullscreenControl"],
+        })
+        mapInstanceRef.current = map
+
+        const routeCoords = MAP_POINTS.map((p) => p.coords)
+        const polyline = new window.ymaps.Polyline(
+          routeCoords,
+          {},
+          {
+            strokeColor: "#ffffff",
+            strokeWidth: 3,
+            strokeOpacity: 0.7,
+            strokeStyle: "dash",
+          }
+        )
+        map.geoObjects.add(polyline)
+
+        MAP_POINTS.forEach((point) => {
+          const placemark = new window.ymaps.Placemark(
+            point.coords,
+            {
+              balloonContent: `<strong>${point.number}. ${point.title}</strong><br/>${point.category}`,
+              hintContent: point.title,
+            },
+            {
+              preset: "islands#darkBlueDotIconWithCaption",
+              iconCaption: point.number,
+            }
+          )
+          map.geoObjects.add(placemark)
+        })
+      })
+    }
+
+    return () => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.destroy()
+        mapInstanceRef.current = null
+      }
+    }
+  }, [])
+
+  return <div ref={mapRef} style={{ width: "100%", height: "100%" }} />
+}
 
 interface FAQ {
   question: string
@@ -290,27 +377,26 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Map placeholder section */}
+      {/* Interactive Map Section */}
       <section className="relative z-10 py-12 px-6">
         <div className="max-w-7xl mx-auto">
-          <div
-            className="rounded-3xl overflow-hidden ring-1 ring-white/10 relative"
-            style={{ height: 400 }}
-          >
-            <img
-              src="https://cdn.poehali.dev/projects/57bf430d-119b-44dd-9ab9-27a0cbb64436/files/a9b4acf9-db80-402c-bd3b-e8f067eea2bb.jpg"
-              alt="Нижнекамск — маршрут"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/20 flex items-end p-8">
-              <div>
-                <h3 className="text-2xl font-bold mb-2">Интерактивная карта маршрута</h3>
-                <p className="text-white/80 mb-4">Все 6 точек с навигацией и описаниями</p>
-                <Button className="bg-white text-black hover:bg-white/90 rounded-full px-6">
-                  Открыть карту
-                </Button>
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">Карта маршрута</h2>
+            <p className="text-white/70">Нажмите на метку, чтобы узнать подробнее о каждой точке</p>
+          </div>
+          <div className="rounded-3xl overflow-hidden ring-1 ring-white/10" style={{ height: 520 }}>
+            <YandexMap />
+          </div>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            {MAP_POINTS.map((p) => (
+              <div
+                key={p.number}
+                className="flex items-center gap-2 px-4 py-2 bg-white/5 ring-1 ring-white/10 rounded-full text-sm"
+              >
+                <span className="font-bold text-white/50">{p.number}</span>
+                <span>{p.title}</span>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
